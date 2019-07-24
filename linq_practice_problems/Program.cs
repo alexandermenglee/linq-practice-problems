@@ -31,11 +31,16 @@ namespace linq_practice_problems
         "98,100,66,74,55"
        };
 
-      double CalculateAverage2(List<string> grades)
+      Func<List<string>, double> stringToDouble;
+
+      stringToDouble = CalculateAverage;
+
+
+      double CalculateAverage(List<string> grades)
       {
         List<double> AllAverages = new List<double>();
 
-        foreach(string grade in grades)
+        foreach (string grade in grades)
         {
           // split string by comma, convert to List, convert list to ints
           string[] arrayOfGradesStr = new string[grade.Length];
@@ -48,6 +53,8 @@ namespace linq_practice_problems
           {
             listOfGrades.Add(int.Parse(arrayOfGradesStr[i]));
           }
+
+          // [89, 45, 23, 53, 67, 69]
 
           // removes lowest grade
           minNumber = listOfGrades.Min();
@@ -63,14 +70,78 @@ namespace linq_practice_problems
           // averages the list
           double average;
           average = listOfGrades.Average();
+
+          // push to AllAverage List
           AllAverages.Add(average);
         }
 
         return AllAverages.Average();
       }
 
-      Console.WriteLine(CalculateAverage2(classGrades));
+      Console.WriteLine(stringToDouble(classGrades));
 
+      /*********************************************************************** Problem 4 ***********************************************************************/
+      /*      void ConvertStringToList(string value)
+            {
+              string empty = "";
+              var stringList = new List<string>();
+              var distinteLetters = new List<string>;
+              List<int> countList = new List<int>();
+
+              // splits word by character into list
+              for (int i = 0; i < value.Length; i++)
+              {
+                stringList.Add(value[i].ToString());
+              }
+
+              // alphabetize stringList and remove duplicates
+              distinteLetters = stringList.OrderBy(x => x);
+              distinteLetters = distinteLetters.Distinct();
+
+              // count all letters
+              for(int i = 0; i < stringList.Count; i++)
+              {
+                countList.Add(stringList.Where(x => x.Equals(stringList[i])).Count());
+              }*/
+
+      // ***************************************************************************
+
+      string ConvertStringToList(string value)
+      {
+        var stringList = new List<string>();
+        var distinctNumbers = new List<int>();
+        var letterFrequency = new List<int>();
+        var result = "";
+        for (int i = 0; i < value.Length; i++)
+        {
+          stringList.Add(value[i].ToString());
+          //Console.WriteLine(stringList[i]);
+        }
+
+        List<string> distinctLetters = stringList.OrderBy(x => x).Distinct().ToList(); //This list will put the characters in the list in alphabetical order and filter out the duplicates
+
+        foreach (var letter in distinctLetters) //This foreach loop goes through the distinctLetters list and compares each character of the distinctLetters to the original StringList, then goes and find the frequency of each character in the stringList
+        {
+          letterFrequency.Add(stringList.Where(x => x.Equals(letter)).Count());
+          //Console.WriteLine(letterFrequency);
+        }
+
+        foreach (int x in letterFrequency)
+        {
+          Console.WriteLine(x);
+        }
+
+        for (int i = 0; i < distinctLetters.Count; i++) //This for loop is used to output a string that concatenates together the chars of distinctLetters and letterFrequency lists
+        {
+          result += distinctLetters[i];
+          result += letterFrequency[i];
+        }
+        Console.WriteLine(result);
+        return result;
+
+      }
+
+      ConvertStringToList("Terrill");
       /********************************************************************************************************************************************************/
       Console.ReadLine();
     }
