@@ -10,7 +10,7 @@ namespace linq_practice_problems
   {
     static void Main(string[] args)
     {
-      /*********************************************************************** Problem 1 ***********************************************************************/
+      /************************************** Problem 1 **************************************/
       /* var words = new List<string>() { "the", "bike", "this", "it", "tenth", "mathematics" };
        var listOfWords = words.Where(w => w.Contains("th"));
        foreach (var word in listOfWords)
@@ -18,11 +18,11 @@ namespace linq_practice_problems
          Console.WriteLine(word);
        }*/
 
-      /*********************************************************************** Problem 2 ***********************************************************************/
+      /************************************** Problem 2 **************************************/
       /*var names = new List<string>() { "Mike", "Brad", "Nevin", "Ian", "Mike" };
       IEnumerable<string> distinctNames = names.Distinct();*/
 
-      /*********************************************************************** Problem 3 ***********************************************************************/
+      /************************************** Problem 2 **************************************/
       List<string> classGrades = new List<string>()
       {
         "80,100,92,89,65",
@@ -80,69 +80,44 @@ namespace linq_practice_problems
 
       Console.WriteLine(stringToDouble(classGrades));
 
-      /*********************************************************************** Problem 4 ***********************************************************************/
-      /*      void ConvertStringToList(string value)
-            {
-              string empty = "";
-              var stringList = new List<string>();
-              var distinteLetters = new List<string>;
-              List<int> countList = new List<int>();
-
-              // splits word by character into list
-              for (int i = 0; i < value.Length; i++)
-              {
-                stringList.Add(value[i].ToString());
-              }
-
-              // alphabetize stringList and remove duplicates
-              distinteLetters = stringList.OrderBy(x => x);
-              distinteLetters = distinteLetters.Distinct();
-
-              // count all letters
-              for(int i = 0; i < stringList.Count; i++)
-              {
-                countList.Add(stringList.Where(x => x.Equals(stringList[i])).Count());
-              }*/
-
-      // ***************************************************************************
-
+      /************************************** Problem 4 **************************************/
       string ConvertStringToList(string value)
       {
-        var stringList = new List<string>();
-        var distinctNumbers = new List<int>();
-        var letterFrequency = new List<int>();
-        var result = "";
+        List<string> stringList = new List<string>();
+        List<int> distinctNumbers = new List<int>();
+        List<int> letterFrequency = new List<int>();
+        List<string> distinctLetters = new List<string>();
+        string result = "";
+
+        // Adds each letter from value into stringList
         for (int i = 0; i < value.Length; i++)
         {
           stringList.Add(value[i].ToString());
-          //Console.WriteLine(stringList[i]);
         }
 
-        List<string> distinctLetters = stringList.OrderBy(x => x).Distinct().ToList(); //This list will put the characters in the list in alphabetical order and filter out the duplicates
+        //  This list will put the characters in the list in alphabetical order and filter out the duplicates
+        distinctLetters = stringList.OrderBy(x => x).Distinct().ToList();
 
-        foreach (var letter in distinctLetters) //This foreach loop goes through the distinctLetters list and compares each character of the distinctLetters to the original StringList, then goes and find the frequency of each character in the stringList
+        // This foreach loop goes through the distinctLetters list and compares each character of the distinctLetters to the original    StringList, then goes and find the frequency of each character in the stringList
+        foreach (var letter in distinctLetters) 
         {
           letterFrequency.Add(stringList.Where(x => x.Equals(letter)).Count());
-          //Console.WriteLine(letterFrequency);
         }
 
-        foreach (int x in letterFrequency)
-        {
-          Console.WriteLine(x);
-        }
-
-        for (int i = 0; i < distinctLetters.Count; i++) //This for loop is used to output a string that concatenates together the chars of distinctLetters and letterFrequency lists
+        // This for loop is used to output a string that concatenates together the chars of distinctLetters and letterFrequency lists
+        for (int i = 0; i < distinctLetters.Count; i++) 
         {
           result += distinctLetters[i];
           result += letterFrequency[i];
         }
+
         Console.WriteLine(result);
         return result;
-
       }
 
-      ConvertStringToList("Terrill");
-      /********************************************************************************************************************************************************/
+      ConvertStringToList("teeth");
+
+      /*******************************************************************************/
       Console.ReadLine();
     }
   }
